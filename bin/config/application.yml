@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url:  jdbc:postgresql://203.104.110.80:5433/devbi
+    username: gpadmin
+    password: gpadmin
+    driverClassName: org.postgresql.Driver
