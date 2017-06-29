@@ -1,6 +1,6 @@
 SELECT
-  name
+  id, name
 FROM
   poc_work.person
 WHERE
-  id = 3
+  id = /*id*/3

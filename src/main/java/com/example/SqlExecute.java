@@ -1,22 +1,22 @@
 package com.example;
 
+import java.util.HashMap;
 import java.util.List;
 //import java.util.Map;
+import java.util.Map;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 //import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import jp.sf.amateras.mirage.SqlManager;
 import jp.sf.amateras.mirage.session.Session;
 import jp.sf.amateras.mirage.session.SessionFactory;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Configuration
 @RestController
@@ -33,18 +33,15 @@ public class SqlExecute {
 		log.info("Method started!");
 		
 		Session session = SessionFactory.getSession();
-		log.info("aaa");
 		SqlManager sqlManager = session.getSqlManager();
-		log.info("bbb");
 		session.begin();
-		log.info("ccc");
 
 		try {
-			log.info("ddd");
-			List<Person> list = sqlManager.getResultList(Person.class, "META-INF/selectPerson.sql");
-			log.info("eee");
-			//String str = list.get(2).get("name").toString();
-			String str = "Hello, world!";
+			Map<String, Integer> params = new HashMap<>();
+			params.put("id", 3);
+			List<Person> list = sqlManager.getResultList(Person.class, "META-INF/selectPerson.sql", params);
+			String str = list.get(0).toString();
+//			String str = "Hello, world!";
 			log.info("Select Succeeded!");
 			return str;
 		} catch (Exception e) {
